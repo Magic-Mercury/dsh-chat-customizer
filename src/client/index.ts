@@ -82,10 +82,10 @@ export function apply(ctx: ClientContext): void {
     setWallpaperPreset(preset)
     applySettings(loadSettings(), preset, 0)
     syncWallpaperTimer()
-  }), 'dsh-chat-customizer: diy per-agent wallpaper')
+  }), 'ui-contacts: diy per-agent wallpaper')
   // The theme presenter rewrites body inline tokens on theme change; replay
   // our overrides afterwards so they keep winning.
-  ctx.effect(() => ctx.on('theme/change', () => applySettings(loadSettings(), diyPreset, 0)), 'dsh-chat-customizer: diy theme replay')
+  ctx.effect(() => ctx.on('theme/change', () => applySettings(loadSettings(), diyPreset, 0)), 'ui-contacts: diy theme replay')
 
   ctx.slots.inject('sidebar', () => ctx.slots.register({
     name: 'sidebar',

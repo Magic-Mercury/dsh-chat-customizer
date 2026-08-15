@@ -105,7 +105,7 @@ export function saveSettings(settings: DiySettings): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
   } catch (error) {
-    console.warn('[dsh-chat-customizer] DIY settings save failed:', error)
+    console.warn('[ui-contacts] DIY settings save failed:', error)
   }
 }
 

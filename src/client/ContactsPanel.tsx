@@ -8,7 +8,8 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
-import type { SessionListState } from '@deepseek-ai/dsh-client-runtime/client'
+import type { SnapshotSelectorHook } from '@deepseek-ai/dsh-client-ui-slots'
+import type { SessionListState, WorkspaceListState } from '@deepseek-ai/dsh-client-runtime/client'
 import type { SessionId } from '@deepseek-ai/dsh-client-connection/client'
 import type { ContactsSnapshot } from './contacts-store.ts'
 import css from './ContactsPanel.module.css'
@@ -18,6 +19,8 @@ export interface ContactsPanelProps {
   roster: ContactsSnapshot
   /** Live session list (from the standard useSessions hook). */
   sessions: SessionListState
+  /** Workspace selector hook (for the archived-session filter). */
+  useWorkspaces: SnapshotSelectorHook<WorkspaceListState>
   /** Open an existing session. */
   openSession: (sessionId: SessionId) => void
   /** Start a new session bound to the given preset id. */
@@ -29,8 +32,11 @@ export interface ContactsPanelProps {
  * @param props - roster, session list, and session actions.
  * @returns the contact rows.
  */
-export function ContactsPanel({ roster, sessions, openSession, startWithPreset }: ContactsPanelProps) {
+export function ContactsPanel({ roster, sessions, useWorkspaces, openSession, startWithPreset }: ContactsPanelProps) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
+  // Archived sessions stay in the sessions list (the tree view filters them
+  // out); the contacts list must hide them too, otherwise "归纳" rows linger.
+  const archived = useWorkspaces(snapshot => snapshot.archivedSessionIds)
 
   if (roster.status === 'idle' || roster.status === 'loading') {
     return <div className={css.hint}>加载联系人…</div>
@@ -42,9 +48,10 @@ export function ContactsPanel({ roster, sessions, openSession, startWithPreset }
     return <div className={css.hint}>没有可用的 Agent 预设</div>
   }
 
-  // Every session per preset, in list order.
+  // Every session per preset, in list order (archived sessions excluded).
   const sessionsByPreset = new Map<string, SessionId[]>()
   for (const id of sessions.ids) {
+    if (archived.includes(id)) continue
     const summary = sessions.byId[id]
     if (summary === undefined || summary.agentPreset === undefined) continue
     const list = sessionsByPreset.get(summary.agentPreset) ?? []

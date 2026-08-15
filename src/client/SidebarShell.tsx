@@ -71,6 +71,7 @@ export function SidebarShell(props: SidebarShellProps) {
     startWithPreset,
     useRoster,
     useSessions,
+    useWorkspaces,
     renderSlot,
   } = props
   const [mode, setMode] = useState<SidebarMode>('sessions')
@@ -168,6 +169,7 @@ export function SidebarShell(props: SidebarShellProps) {
             <ContactsPanel
               roster={roster}
               sessions={sessions}
+              useWorkspaces={useWorkspaces}
               openSession={openSession}
               startWithPreset={startWithPreset}
             />

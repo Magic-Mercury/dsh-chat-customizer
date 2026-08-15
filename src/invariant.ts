@@ -1,16 +1,16 @@
 /**
- * Package-owned invariant companion for `dsh-chat-customizer`.
- * @module dsh-chat-customizer/invariant
+ * Package-owned invariant companion for `@deepseek-ai/dsh-client-ui-contacts`.
+ * @module @deepseek-ai/dsh-client-ui-contacts/invariant
  */
 
 /* jscpd:ignore-start */
 import type { Context } from '@deepseek-ai/cordis'
 import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
 
-const PACKAGE_NAME = 'dsh-chat-customizer'
+const PACKAGE_NAME = '@deepseek-ai/dsh-client-ui-contacts'
 
 /** Cordis companion plugin name. */
-export const name = 'dsh-chat-customizer-invariant'
+export const name = 'client-ui-contacts-invariant'
 /** Service required before the companion can reserve package ownership. */
 export const inject = ['invariants']
 
