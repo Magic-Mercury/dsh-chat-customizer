@@ -232,17 +232,25 @@ export function setWallpaperPreset(preset: string | undefined): void {
   syncWallpaperTimer()
 }
 
-/** Move the carousel (manual next/prev); re-applies and re-syncs. */
-export function advanceWallpaper(delta: 1 | -1 | 0): void {
+/**
+ * Move the carousel. Manual calls (and session switches) restart the timer
+ * so the next auto tick starts from a full interval; automatic ticks pass
+ * `resetTimer: false` so the fixed setInterval cadence stays uniform instead
+ * of being rebuilt on every tick (which drifted with render cost).
+ * @param delta - direction (+1 next, -1 prev, 0 re-apply).
+ * @param resetTimer - whether to restart the auto timer (default true).
+ */
+export function advanceWallpaper(delta: 1 | -1 | 0, resetTimer = true): void {
   cursor = { ...cursor, index: Math.max(0, cursor.index + delta) }
   cursorApplier?.(cursor.preset, cursor.index)
   notifyCursor()
-  syncWallpaperTimer()
+  if (resetTimer) syncWallpaperTimer()
 }
 
 /**
  * (Re)start the auto-advance timer from settings: interval > 0 and the
- * current agent owning ≥2 wallpapers. Stopped otherwise.
+ * current agent owning ≥2 wallpapers. Stopped otherwise. Auto ticks advance
+ * WITHOUT restarting the timer, so the cadence is a uniform setInterval.
  */
 export function syncWallpaperTimer(): void {
   if (cursorTimer !== undefined) {
@@ -253,7 +261,7 @@ export function syncWallpaperTimer(): void {
   const interval = settings.wallpaperInterval
   if (interval === undefined || interval <= 0) return
   if (cursor.preset === undefined || agentWallpapers(settings, cursor.preset).length < 2) return
-  cursorTimer = window.setInterval(() => { advanceWallpaper(1) }, interval * 1000)
+  cursorTimer = window.setInterval(() => { advanceWallpaper(1, false) }, interval * 1000)
 }
 
 /**
