@@ -1,0 +1,154 @@
+/* Dual-mode sidebar shell: uses the theme's semantic aliases exactly like
+   ui-sidebar / ui-workspace, so both modes match the active theme. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  background: var(--dsw-specific-sidebar-fill);
+  color: var(--dsw-alias-label-primary);
+  font-size: 14px;
+}
+
+/* ── top bar: collapse toggle + mode tabs ─────────────────────────── */
+.top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 8px 4px;
+  border-bottom: 1px solid var(--dsw-alias-border-l2);
+  flex: none;
+}
+
+.toggle {
+  border: none;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  padding: 4px 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.toggle:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  background: var(--dsw-alias-interactive-bg-hover);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 13px;
+  line-height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+.tabActive {
+  background: var(--dsw-alias-button-elevated-fill);
+  color: var(--dsw-alias-label-primary);
+  font-weight: 600;
+}
+
+/* ── new session bar (sessions mode) ────────────────────────────────── */
+.newSession {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 8px 16px;
+  margin: 8px 10px 0;
+  box-sizing: border-box;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 12px;
+  background: var(--dsw-alias-button-elevated-fill);
+  color: var(--dsw-alias-label-primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  cursor: pointer;
+}
+.newSession:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.newSessionLabel {
+  white-space: nowrap;
+}
+
+/* ── body: the active mode's surface ───────────────────────────────── */
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── foot: footer actions + settings ───────────────────────────────── */
+.foot {
+  flex: none;
+  border-top: 1px solid var(--dsw-alias-border-l2);
+}
+.footActions {
+  display: flex;
+  flex-direction: column;
+}
+.footSettings {
+  display: flex;
+}
+
+/* ── collapsed rail ────────────────────────────────────────────────── */
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 0 6px;
+  height: 100%;
+  background: var(--dsw-specific-sidebar-fill);
+}
+
+.railBtn {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dsw-alias-label-primary);
+}
+.railBtn:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.railActive {
+  background: color-mix(in srgb, #07c160 16%, transparent);
+  color: #07c160;
+}
+
+.railFoot {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,47 @@
+.bar {
+  position: fixed;
+  right: 16px;
+  bottom: 96px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--dsw-alias-bg-base) 82%, transparent);
+  border: 1px solid var(--dsw-alias-border-l2);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.18);
+  /* The overlay layer is click-through; the bar opts back in. */
+  pointer-events: auto;
+  z-index: 60;
+}
+
+.btn {
+  border: none;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
+}
+
+.count {
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary);
+  min-width: 44px;
+  text-align: center;
+  user-select: none;
+}
+
+.autoBtn {
+  font-size: 11px;
+}
+.autoOn {
+  color: #07c160;
+  background: color-mix(in srgb, #07c160 14%, transparent);
+}

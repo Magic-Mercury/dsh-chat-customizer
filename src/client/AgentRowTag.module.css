@@ -1,0 +1,14 @@
+.tag {
+  flex: none;
+  max-width: 96px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  line-height: 16px;
+  padding: 0 6px;
+  margin-left: 6px;
+  border-radius: 8px;
+  background: color-mix(in srgb, #07c160 14%, transparent);
+  color: #07c160;
+}

@@ -1,0 +1,12 @@
+# dsh-chat-customizer bundle patch: swaps the sidebar for the dual-mode shell.
+# Applied as a profile layer after dsh-web-app's patch, so these rows win:
+# ui-sidebar is disabled (its slot registration and child-seat declarations
+# disappear with it) and dsh-chat-customizer takes over the `sidebar` slot,
+# re-declaring the workspace/settings/footer seats so the default session
+# tree still renders in sessions mode.
+- id: ui-sidebar
+  disabled: true
+
+- insert:
+    - id: dsh-chat-customizer
+      name: 'dsh-chat-customizer'
