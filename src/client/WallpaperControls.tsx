@@ -47,8 +47,15 @@ export function WallpaperControls(props: WallpaperControlsProps) {
 
   const toggleAuto = (): void => {
     const next = { ...settings }
-    if (autoOn) delete next.wallpaperInterval
-    else next.wallpaperInterval = AUTO_INTERVAL_SEC
+    if (autoOn) {
+      // Stop: clear the interval entirely (manual mode).
+      delete next.wallpaperInterval
+    } else {
+      // Start: keep the interval set in the DIY panel when there is one;
+      // fall back to the default only when none was configured.
+      const current = next.wallpaperInterval
+      next.wallpaperInterval = current !== undefined && current > 0 ? current : AUTO_INTERVAL_SEC
+    }
     localStorage.setItem('dsh.diy.settings', JSON.stringify(next))
     syncWallpaperTimer()
     advanceWallpaper(0) // re-render the bar
